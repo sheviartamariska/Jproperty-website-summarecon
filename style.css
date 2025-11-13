@@ -1,0 +1,242 @@
+/* ================= RESET ================= */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html,body { height: 100%; }
+body {
+  font-family: "Poppins", sans-serif;
+  color: #fff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ================ HERO ================ */
+.hero {
+  width: 100%;
+  height: 100vh; /* fill viewport */
+  display: flex;
+  align-items: center;  /* vertically center overlay */
+  justify-content: center; /* horizontally center overlay */
+  position: relative;
+  overflow: hidden;
+  background: url(bg.jpg) center/cover no-repeat; /* ensure image applies */
+}
+
+/* mobile image — hidden on desktop, shown on mobile */
+.mobile-image {
+  display: none;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* overlay: the green band area (desktop background image not required) */
+.overlay {
+  background: rgba(0, 100, 0, 0.55); /* slightly transparent green */
+  padding: 60px 80px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 40vh;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+}
+
+
+
+/* content container (desktop two-column) */
+.content {
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  color: #fff;
+}
+
+/* LEFT: title + CTA (desktop) */
+.left {
+  flex: 1;
+  min-width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.left h1 {
+  font-size: 2.2rem;
+  line-height: 1.25;
+  font-weight: 700;
+  color: #fff;
+}
+
+.left h1 span { font-weight: 800; color: #fff; }
+
+/* keep the button inside left on desktop; we'll reorder on mobile via media query */
+.cta-btn {
+  background-color: #43b649;
+  color: #fff;
+  border: none;
+  padding: 12px 48px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: background .18s ease;
+}
+.cta-btn:hover { background-color: #34a23f; }
+
+/* RIGHT: list (desktop) */
+.right {
+  flex: 1;
+  max-width: 520px;
+  list-style: none;
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #fff;
+}
+.right li { margin-bottom: 6px; }
+
+/* Footer */
+footer {
+  background: #002f24;
+  text-align: center;
+  padding: 14px 0;
+  font-size: 0.95rem;
+  color: #fff;
+}
+
+/* =============== POPUP =============== */
+.popup {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.60);
+  backdrop-filter: blur(3px);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.popup-content {
+  width: 92%;
+  max-width: 520px;
+  background: #fff;
+  color: #222;
+  border-radius: 12px;
+  padding: 28px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+  position: relative;
+}
+.popup-content .close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  background: #fff;
+  border: 2px solid #ddd;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* form inside popup */
+.popup-content form { display: flex; flex-direction: column; gap: 12px; }
+.popup-content label { font-weight: 600; color: #333; font-size: 14px; }
+.popup-content input {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+/* submit button */
+.submit-btn {
+  background: #43b649;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+}
+
+/* ============ RESPONSIVE (MOBILE) ============ */
+/* breakpoint for mobile layout */
+@media (max-width: 768px) {
+
+  /* show the mobile top image */
+  .hero {
+    height: auto;
+    min-height: 0;
+    display: block;
+    background: none; /* background handled by mobile-image */
+  }
+
+  .mobile-image { display: block; }
+
+  /* overlay should sit below the image and become a solid green card */
+  .overlay {
+    background: #0d2c4a; /* solid green for mobile */
+    padding: 0;
+    border-radius: 0px;
+    height: auto;        /* allow content to push height */
+    display: block;      /* remove flex centering */
+  }
+
+  /* stack content vertically */
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    width: 100%;
+    max-width: 100%;
+    padding: 20px;
+  }
+
+  /* title centered and slightly smaller */
+  .left {
+    width: 100%;
+    min-width: 0;
+    align-items: center;
+    text-align: center;
+    padding: 24px 16px 6px 16px;
+  }
+  .left h1 { font-size: 1.4rem; line-height: 1.3; margin-bottom: 8px; }
+
+  /* right becomes the main green info box */
+  .right {
+    width: 100%;
+    background: transparent; /* overlay already colored */
+    text-align: left;
+    padding: 16px 18px;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #fff;
+  }
+
+  /* reorder: title then list then button */
+  .left { order: 0; }
+  .right { order: 1; }
+  .cta-btn { order: 2; width: 92%; max-width: 420px; margin: 18px auto 28px auto; display: block; align-self: center; padding: 14px 18px; }
+
+  /* tweak popup for mobile */
+  .popup-content { padding: 20px; }
+  .popup-content input { font-size: 15px; }
+  .submit-btn { padding: 12px; }
+
+  /* slightly smaller footer */
+  footer { font-size: 0.85rem; padding: 12px 0; }
+}
+
+/* extra small devices */
+@media (max-width: 420px) {
+  .left h1 { font-size: 1.2rem; }
+  .right { font-size: 0.95rem; }
+  .cta-btn { width: 94%; padding: 12px 16px; }
+}
